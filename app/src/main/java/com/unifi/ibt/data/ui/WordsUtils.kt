@@ -8,12 +8,13 @@ internal fun parseHTML(response: String?): ArrayList<Word> {
         //Get text inside body TAG
         ?.substringAfter("<body>")
         ?.substringBeforeLast("</body>")
+        ?.lowercase()
         //Remove Script TAGS
         ?.replace("<script (.|\n)*?</script>".toRegex(), " ")
         //Remove ALL TAGS
         ?.replace("<(.|\n)*?>|</(.|\n)*?>".toRegex(), " ")
         //Remove special chars
-        ?.replace("[^a-zA-Z1-9]".toRegex(), " ")
+        ?.replace("[^a-zA-Z1-9']".toRegex(), " ")
         ?.trim()
         //Chars with a space before/after it.
         ?.split(" ")

@@ -39,4 +39,10 @@ class WordsUtilsTest {
         val result =parseHTML(htmlTest4)
         assertEquals(result.size, 1 )
     }
+    @Test
+    fun parsHTML_two_Returns2() {
+        val htmlTest5 ="one's One"
+        val result =parseHTML(htmlTest5)
+        assertEquals(result.size, 2 )
+    }
 }
