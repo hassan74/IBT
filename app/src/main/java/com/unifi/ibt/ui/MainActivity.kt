@@ -6,9 +6,11 @@ import android.os.Looper
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unifi.ibt.R
 import com.unifi.ibt.data.CachedLocalDataSource
@@ -24,6 +26,7 @@ import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() ,
     androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
     var words = ArrayList<Word>()
     lateinit var wordsViewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity() ,
         binding.rvWord.layoutManager = LinearLayoutManager(this)
         wordsAdapter = WordsAdapter(words)
         binding.rvWord.adapter = wordsAdapter
-        wordsViewModel = initWordsViewModel()
+        initWordsViewModel()
         showLoading()
         showMessage()
         sortAscDsc()
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() ,
         })
     }
 
-    private fun initWordsViewModel(): MainViewModel {
+    private fun initWordsViewModel() {
         //Initialize objects Since we don't use third party libraries like dagger or hilt
         val sharedPref = getPreferences(MODE_PRIVATE)
 
@@ -78,7 +81,8 @@ class MainActivity : AppCompatActivity() ,
             WordRepository(
                 remoteDataSource, localDataSource, executor, handler
             )
-        return MainViewModel(wordRepository)
+
+        wordsViewModel = ViewModelProvider(this,WordsViewModelFactory(wordRepository)).get(MainViewModel::class.java)
     }
 
     private fun showLoading() {
