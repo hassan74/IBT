@@ -1,10 +1,10 @@
 package com.unifi.ibt.data.local
 
 import com.unifi.ibt.data.remote.NetworkConnection
-import com.unifi.ibt.data.repo.ResponseListener
+import com.unifi.ibt.data.repo.Result
 
 class RemoteDataSource(var networkConnection: NetworkConnection){
-    fun getWords():String{
+    fun getWords(): Result {
        return networkConnection.getWebsite()
     }
 }

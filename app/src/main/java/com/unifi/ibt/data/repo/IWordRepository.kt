@@ -6,5 +6,5 @@ interface IWordRepository {
 
     fun insert(vararg word: Word)
 
-    fun getAllWords(isOffline:Boolean,callBack: ResponseListener)
+    fun getAllWords(isOffline:Boolean,callBack: (Result) -> Unit)
 }

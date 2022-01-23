@@ -13,22 +13,20 @@ class WordRepository(
     val resultHandler: Handler
 ) : IWordRepository {
     override fun insert(vararg word: Word) {
-
     }
 
-    override fun getAllWords(isOffline: Boolean, callBack: ResponseListener) {
+    override fun getAllWords(isOffline: Boolean, callBack: (Result) -> Unit) {
         if (!isOffline) {
             executor.execute {
                 try {
-                    val result = remoteDataSource.getWords()
+                    val response = remoteDataSource.getWords()
                     // callBack.onSuccess(result)
                     resultHandler.post {
-                        callBack.onSuccess(result)
+                        callBack(response)
                     }
                 } catch (e: Exception) {
-                    callBack.onError(e)
+                    callBack(Result.Error(e))
                 }
-
             }
 
         }

@@ -1,19 +1,20 @@
 package com.unifi.ibt.data.remote
 
-import androidx.loader.content.AsyncTaskLoader
-import com.unifi.ibt.data.repo.ResponseListener
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import com.unifi.ibt.data.repo.Result
+import java.lang.Exception
+import java.net.HttpURLConnection
 import java.net.URL
 
 class NetworkConnection {
-    fun getWebsite():String {
-            val url = URL("https://instabug.com/")
-            val urlcon = url.openConnection()
-            val stream = urlcon.getInputStream()
-            val fileInputStream =InputStreamReader(stream)
-            var result =stream.bufferedReader().use { it.readText() }
+    fun getWebsite(): Result {
+        val url = URL("https://instabug.com/")
+        (url.openConnection() as? HttpURLConnection)?.run {
+            val stream = inputStream
+            // val fileInputStream =InputStreamReader(stream)
+            var result = stream.bufferedReader().use { it.readText() }
             stream.close()
-            return result
+            return Result.Success(result)
+        }
+        return Result.Error(Exception("Cannot open Connection"))
     }
 }
