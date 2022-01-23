@@ -1,10 +1,10 @@
-package com.unifi.ibt.data.ui
+package com.unifi.ibt.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.unifi.ibt.data.models.Word
-import com.unifi.ibt.data.repo.IWordRepository
-import com.unifi.ibt.data.repo.Result
+import com.unifi.ibt.models.Word
+import com.unifi.ibt.data.IWordRepository
+import com.unifi.ibt.data.Result
 
 class MainViewModel(
     var wordRepository: IWordRepository

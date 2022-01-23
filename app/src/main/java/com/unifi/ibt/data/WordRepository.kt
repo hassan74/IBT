@@ -1,9 +1,7 @@
-package com.unifi.ibt.data.repo
+package com.unifi.ibt.data
 
 import android.os.Handler
-import com.unifi.ibt.data.local.CachedLocalDataSource
-import com.unifi.ibt.data.local.RemoteDataSource
-import com.unifi.ibt.data.models.Word
+import com.unifi.ibt.models.Word
 import java.util.concurrent.Executor
 
 class WordRepository(

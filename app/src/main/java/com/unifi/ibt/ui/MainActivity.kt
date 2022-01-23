@@ -1,4 +1,4 @@
-package com.unifi.ibt.data.ui
+package com.unifi.ibt.ui
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,12 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unifi.ibt.R
-import com.unifi.ibt.data.local.CachedLocalDataSource
-import com.unifi.ibt.data.local.RemoteDataSource
-import com.unifi.ibt.data.models.Word
-import com.unifi.ibt.data.remote.NetworkConnection
-import com.unifi.ibt.data.repo.IWordRepository
-import com.unifi.ibt.data.repo.WordRepository
+import com.unifi.ibt.data.CachedLocalDataSource
+import com.unifi.ibt.data.RemoteDataSource
+import com.unifi.ibt.models.Word
+import com.unifi.ibt.network.NetworkConnection
+import com.unifi.ibt.data.IWordRepository
+import com.unifi.ibt.data.WordRepository
 import com.unifi.ibt.databinding.ActivityMainBinding
 import java.util.concurrent.Executors
 

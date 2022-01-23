@@ -1,6 +1,6 @@
-package com.unifi.ibt.data.ui
+package com.unifi.ibt.ui
 
-import com.unifi.ibt.data.models.Word
+import com.unifi.ibt.models.Word
 import org.junit.Test
 
 import org.junit.Assert.*

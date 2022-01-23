@@ -1,7 +1,7 @@
-package com.unifi.ibt.data.local
+package com.unifi.ibt.data
 
-import com.unifi.ibt.data.remote.NetworkConnection
-import com.unifi.ibt.data.repo.Result
+import com.unifi.ibt.data.Result
+import com.unifi.ibt.network.NetworkConnection
 
 class RemoteDataSource(var networkConnection: NetworkConnection){
     fun getWords(): Result {

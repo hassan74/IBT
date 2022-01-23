@@ -1,6 +1,6 @@
-package com.unifi.ibt.data.repo
+package com.unifi.ibt.data
 
-import com.unifi.ibt.data.models.Word
+import com.unifi.ibt.models.Word
 
 interface IWordRepository {
 

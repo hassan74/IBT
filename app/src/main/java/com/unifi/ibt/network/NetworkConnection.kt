@@ -1,6 +1,6 @@
-package com.unifi.ibt.data.remote
+package com.unifi.ibt.network
 
-import com.unifi.ibt.data.repo.Result
+import com.unifi.ibt.data.Result
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
