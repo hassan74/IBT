@@ -3,6 +3,9 @@ package com.unifi.ibt.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,20 +19,42 @@ import com.unifi.ibt.databinding.ActivityMainBinding
 import com.unifi.ibt.models.Word
 import com.unifi.ibt.network.NetworkConnection
 import com.unifi.ibt.utils.checkInternetConnection
+import com.unifi.ibt.utils.sortWords
 import java.util.concurrent.Executors
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,
+    androidx.appcompat.widget.SearchView.OnQueryTextListener {
     var words = ArrayList<Word>()
     lateinit var wordsViewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
+    lateinit var wordsAdapter: WordsAdapter
+    var sortAsc = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.rvWord.layoutManager = LinearLayoutManager(this)
-        binding.rvWord.adapter = WordsAdapter(words)
+        wordsAdapter = WordsAdapter(words)
+        binding.rvWord.adapter = wordsAdapter
         wordsViewModel = initWordsViewModel()
+        showLoading()
+        showMessage()
+        sortAscDsc()
+        searchWords()
         getWords()
+
+    }
+
+    private fun searchWords() {
+        binding.include.searchWord.setOnQueryTextListener(this)
+    }
+
+    private fun sortAscDsc() {
+        binding.include.sortList.setOnClickListener {
+            words.sortWords(sortAsc)
+            sortAsc = sortAsc.not()
+            binding.rvWord.adapter?.notifyDataSetChanged()
+        }
     }
 
     private fun getWords() {
@@ -54,6 +79,29 @@ class MainActivity : AppCompatActivity() {
                 remoteDataSource, localDataSource, executor, handler
             )
         return MainViewModel(wordRepository)
+    }
+
+    private fun showLoading() {
+        wordsViewModel.showLoading.observe(this, {
+            if (it) binding.progressBar.visibility = View.VISIBLE
+            else binding.progressBar.visibility = View.GONE
+        })
+    }
+
+    private fun showMessage() {
+        wordsViewModel.showMessage.observe(this, {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        wordsAdapter.filter.filter(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        wordsAdapter.filter.filter(newText)
+        return false
     }
 
 }

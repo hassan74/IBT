@@ -6,5 +6,5 @@ interface IWordRepository {
 
     fun saveHTML(response:String)
 
-    fun getAllWords(isConnected:Boolean,callBack: (Result) -> Unit)
+    fun getAllWords(isConnected:Boolean,callBack: (Result<String>) -> Unit)
 }

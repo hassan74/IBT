@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import java.lang.Exception
 
 class CachedLocalDataSource(var sharedPref: SharedPreferences) {
-    fun getCachedData(): Result {
+    fun getCachedData(): Result<String> {
         sharedPref.getString("local_words", null)?.apply {
             return Result.Success(this)
         }

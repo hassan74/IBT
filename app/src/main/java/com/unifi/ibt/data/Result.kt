@@ -2,7 +2,7 @@ package com.unifi.ibt.data
 
 import java.lang.Exception
 
-sealed class Result {
-    data class Success(val response:String): Result()
-    data class Error(val exception: Exception): Result()
+sealed class Result<T> {
+    data class Success<T>(val data:T): Result<T>()
+    data class Error<T>(val exception: Exception): Result<T>()
 }

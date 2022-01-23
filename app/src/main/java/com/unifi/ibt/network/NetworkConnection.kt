@@ -6,7 +6,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class NetworkConnection {
-    fun getWebsite(): Result {
+    fun getWebsite(): Result<String> {
         val url = URL("https://instabug.com/")
         (url.openConnection() as? HttpURLConnection)?.run {
             val stream = inputStream

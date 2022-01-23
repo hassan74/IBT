@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.unifi.ibt.models.Word
+import java.util.*
 
 fun Context.checkInternetConnection(): Boolean {
     val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -22,5 +24,22 @@ fun Context.checkInternetConnection(): Boolean {
             connectivityManager.activeNetworkInfo ?: return false
         @Suppress("DEPRECATION")
         return networkInfo.isConnected
+    }
+
+}
+
+
+fun ArrayList<Word>.sortWords(asc: Boolean) {
+    when (asc) {
+        true -> sortBy { it.count }
+        false -> sortByDescending { it.count }
+    }
+}
+
+fun ArrayList<Word>.filter(charSearch: String): ArrayList<Word> {
+    if (charSearch.isEmpty()) {
+        return this
+    } else {
+        return filter { it.name.contains(charSearch.lowercase(Locale.ROOT)) } as ArrayList<Word>
     }
 }

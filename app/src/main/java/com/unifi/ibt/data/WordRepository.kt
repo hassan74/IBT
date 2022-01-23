@@ -4,19 +4,19 @@ import android.os.Handler
 import java.util.concurrent.Executor
 
 class WordRepository(
-    val remoteDataSource: RemoteDataSource,
-    val localDataSource: CachedLocalDataSource,
-    val executor: Executor,
-    val resultHandler: Handler
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: CachedLocalDataSource,
+    private val executor: Executor,
+    private val resultHandler: Handler
 ) : IWordRepository {
 
-    override fun getAllWords(isConnected: Boolean, callBack: (Result) -> Unit) {
+    override fun getAllWords(isConnected: Boolean, callBack: (Result<String>) -> Unit) {
         if (isConnected) {
             executor.execute {
                 try {
                     val result = remoteDataSource.fetchData()
                     if (result is Result.Success)
-                        saveHTML(result.response)
+                        saveHTML(result.data)
 
                     resultHandler.post {
                         callBack(result)
