@@ -11,7 +11,7 @@ class NetworkConnection {
         (url.openConnection() as? HttpURLConnection)?.run {
             val stream = inputStream
             // val fileInputStream =InputStreamReader(stream)
-            var result = stream.bufferedReader().use { it.readText() }
+            val result = stream.bufferedReader().use { it.readText() }
             stream.close()
             return Result.Success(result)
         }

@@ -27,7 +27,7 @@ class WordsAdapter(var words: ArrayList<Word>) : RecyclerView.Adapter<RecyclerVi
     }
 
     class WordsViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        var tvWordName =view.findViewById<TextView>(R.id.tvWordName)
+        var tvWordName: TextView =view.findViewById<TextView>(R.id.tvWordName)
         var tvWordCount =view.findViewById<TextView>(R.id.tvWordCount)
     }
 }

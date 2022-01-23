@@ -4,7 +4,7 @@ import com.unifi.ibt.models.Word
 
 interface IWordRepository {
 
-    fun insert(vararg word: Word)
+    fun saveHTML(response:String)
 
-    fun getAllWords(isOffline:Boolean,callBack: (Result) -> Unit)
+    fun getAllWords(isConnected:Boolean,callBack: (Result) -> Unit)
 }

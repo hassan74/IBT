@@ -11,8 +11,8 @@ class MainViewModel(
 ) {
     var _wordsResult = MutableLiveData<ArrayList<Word>>()
     val wordsResult: LiveData<ArrayList<Word>> = _wordsResult
-    fun getAllWords() {
-        wordRepository.getAllWords(false) { result ->
+    fun  getAllWords(isConnected:Boolean) {
+        wordRepository.getAllWords(isConnected) { result ->
             when (result) {
                 is Result.Success -> _wordsResult.value = parseHTML(result.response)
                 else -> (result as Result.Error).exception

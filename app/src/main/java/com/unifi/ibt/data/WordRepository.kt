@@ -1,33 +1,40 @@
 package com.unifi.ibt.data
 
 import android.os.Handler
-import com.unifi.ibt.models.Word
 import java.util.concurrent.Executor
 
 class WordRepository(
     val remoteDataSource: RemoteDataSource,
-    val cachedLocalDataSource: CachedLocalDataSource,
+    val localDataSource: CachedLocalDataSource,
     val executor: Executor,
     val resultHandler: Handler
 ) : IWordRepository {
-    override fun insert(vararg word: Word) {
-    }
 
-    override fun getAllWords(isOffline: Boolean, callBack: (Result) -> Unit) {
-        if (!isOffline) {
+    override fun getAllWords(isConnected: Boolean, callBack: (Result) -> Unit) {
+        if (isConnected) {
             executor.execute {
                 try {
-                    val response = remoteDataSource.getWords()
-                    // callBack.onSuccess(result)
+                    val result = remoteDataSource.fetchData()
+                    if (result is Result.Success)
+                        saveHTML(result.response)
+
                     resultHandler.post {
-                        callBack(response)
+                        callBack(result)
                     }
                 } catch (e: Exception) {
                     callBack(Result.Error(e))
                 }
             }
 
+        } else {
+            callBack(localDataSource.getCachedData())
         }
+
+    }
+
+
+    override fun saveHTML(response: String) {
+        localDataSource.saveData(response)
 
     }
 
