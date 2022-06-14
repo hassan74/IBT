@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IBT</string>
+    <string name="oops">Oops!</string>
+    <string name="empty_item">No items found</string>
+    <string name="error">Something went wrong!</string>
+    <string name="retry">Retry</string>
 </resources>

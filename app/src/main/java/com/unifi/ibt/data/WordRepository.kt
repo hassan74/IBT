@@ -1,11 +1,13 @@
 package com.unifi.ibt.data
 
 import android.os.Handler
+import com.unifi.ibt.data.localdata.CachedLocalDataSource
+import com.unifi.ibt.data.remotedata.RemoteDataSource
 import java.util.concurrent.Executor
 
 class WordRepository(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: CachedLocalDataSource,
+    private val remoteDataSource: IDataSource,
+    private val localDataSource: IDataSource,
     private val executor: Executor,
     private val resultHandler: Handler
 ) : IWordRepository {
@@ -27,7 +29,7 @@ class WordRepository(
             }
 
         } else {
-            callBack(localDataSource.getCachedData())
+            callBack(localDataSource.fetchData())
         }
 
     }
